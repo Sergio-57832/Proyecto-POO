@@ -13,7 +13,7 @@ public class ProyectoPOO {
 
         System.out.println("Gay el que lo lea");
 
-        
+        System.out.println("Gay");
         
         
         
