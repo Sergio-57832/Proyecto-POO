@@ -25,6 +25,7 @@ public class ProyectoPOO {
         
         System.out.println("ola");
         
+        System.out.println("HOLA");
         
     }
     
