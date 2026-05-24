@@ -9,7 +9,6 @@ public class ProyectoPOO {
 
         System.out.println("yoan mini");
 
-
         
         
         
