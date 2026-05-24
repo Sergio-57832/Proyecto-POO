@@ -27,6 +27,8 @@ public class ProyectoPOO {
         
         System.out.println("HOLA");
         
+        System.out.println("AJA");
+        
     }
     
 }
