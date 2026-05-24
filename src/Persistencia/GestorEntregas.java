@@ -25,6 +25,7 @@ public class GestorEntregas {
             System.out.println("Error al guardar entrega/s: " + error.getMessage());
         }
     }
+    
     public List<Entrega> cargarEntregas(){
         List<Entrega> listaEntregas = new ArrayList<>();
         try(BufferedReader lector = new BufferedReader(new FileReader(rutaDatos))){

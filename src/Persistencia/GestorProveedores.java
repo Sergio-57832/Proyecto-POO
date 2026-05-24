@@ -12,6 +12,17 @@ public class GestorProveedores {
 
     private static final String rutaDatos = "Datos/proveedores.txt";
 
+    public void guardarTodos(List<Proveedor> lista){
+        try(BufferedWriter escritor = new BufferedWriter(new FileWriter(rutaDatos))){
+            for(Proveedor proveedorcito : lista){
+                escritor.write(proveedorcito.getId() + ";" + proveedorcito.getNombre());
+                escritor.newLine();
+            }
+        }catch(IOException error){
+            System.out.println("Error al guardar todos: " + error.getMessage());
+        }
+    }
+    
     public void guardarProveedor(Proveedor proveedor){
         try(BufferedWriter escritor = new BufferedWriter(new FileWriter(rutaDatos, true))){
             escritor.write(proveedor.getId() + ";" + proveedor.getNombre());
