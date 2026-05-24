@@ -6,7 +6,7 @@ public class ProyectoPOO {
         
         System.out.println("yoan equisde");
 
-
+        System.out.println("yoan mini");
 
 
         
