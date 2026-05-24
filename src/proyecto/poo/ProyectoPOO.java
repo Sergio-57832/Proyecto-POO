@@ -23,6 +23,7 @@ public class ProyectoPOO {
         
         System.out.println("xd");
         
+        System.out.println("ola");
         
         
     }
