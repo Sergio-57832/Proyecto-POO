@@ -6,8 +6,10 @@ public class ProyectoPOO {
         
         System.out.println("yoan equisde");
         System.out.println("sergio es uwu");
+        System.out.println("thankyou sergito");
 
         System.out.println("yoan mini");
+        System.out.println("jjj");
 
         System.out.println("Gay el que lo lea");
 
