@@ -11,15 +11,13 @@ public class ProyectoPOO {
         System.out.println("yoan mini");
         System.out.println("jjj");
 
-<<<<<<< HEAD
         
-=======
         System.out.println("Gay el que lo lea");
 
         System.out.println("Gay");
->>>>>>> 3d78a650416eb0d46ba6d9086a8312a29629fea5
         
         
+        System.out.println("hola equisde");
         
         
         
