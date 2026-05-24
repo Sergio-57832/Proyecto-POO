@@ -58,6 +58,6 @@ public class Pedido implements Registrable {
         this.idProveedor = idProveedor;
     }
     
-    //se usará para imprimir o confirmar que el proveedor quedó registrado(pero controlador lo guarda)
+    //se usará para imprimir o confirmar que el pedido quedó registrado(pero controlador lo guarda)
     public void confirmarRegistro(){}
 }
