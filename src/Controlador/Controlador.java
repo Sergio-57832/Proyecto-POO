@@ -76,6 +76,30 @@ public class Controlador {
     
     //Obtener estadisticas
     
+    public String obtenerEstadisticasRango(String fechaInicio, String fechaFin, String idProveedor){
+        List<Pedido> listaPedidos = gestorPedidos.cargarPedidos();
+        int cantidad = 0;
+        double sumatoria = 0;
+        Pedido pedidoMayor = null;
+    
+        for(Pedido pedidito : listaPedidos){
+            boolean enRango = pedidito.getFecha().compareTo(fechaInicio) >= 0 && 
+                              pedidito.getFecha().compareTo(fechaFin) <= 0;
+                                boolean esProveedor = idProveedor.equals("Todos") || pedidito.getIdProveedor().equals(idProveedor);
+
+            if(enRango && esProveedor){
+                cantidad++;
+                sumatoria += pedidito.getValorTotal();
+                if(pedidoMayor == null || pedidito.getValorTotal() > pedidoMayor.getValorTotal()){
+                    pedidoMayor = pedidito;
+                }
+            }
+        }
+        return ("Cantidad de pedidos: " + cantidad +
+                "\nSumatoria total: $" + sumatoria +
+                "\nPedido de mayor valor: " + 
+                (pedidoMayor != null ? pedidoMayor.getId() + " - $" + pedidoMayor.getValorTotal() : "No hay pedidos"));
+    }
     public String obtenerEstadisticasMes(String mes){
         List<Pedido> listaPedidos = gestorPedidos.cargarPedidos();
         int cantidadPedidos = 0;

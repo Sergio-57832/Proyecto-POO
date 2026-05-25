@@ -1,13 +1,11 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package Vista;
+import Controlador.Controlador;
+import Persistencia.GestorProveedores;
+import Persistencia.GestorEntregas;
+import Persistencia.GestorPedidos;
+import Modelo.Proveedor;
+import java.util.List;
 
-/**
- *
- * @author sergi
- */
 public class EstadisticasVista extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(EstadisticasVista.class.getName());
@@ -15,8 +13,17 @@ public class EstadisticasVista extends javax.swing.JFrame {
     /**
      * Creates new form EstadisticasVista
      */
+    private Controlador controlador = new Controlador(new GestorProveedores(), new GestorEntregas(), new GestorPedidos());
     public EstadisticasVista() {
         initComponents();
+        spinnerDiaInicio.setModel(new javax.swing.SpinnerNumberModel(1, 1, 31, 1));
+        spinnerMesInicio.setModel(new javax.swing.SpinnerNumberModel(1, 1, 12, 1));
+        spinnerAñoInicio.setModel(new javax.swing.SpinnerNumberModel(2026L, 2000L, 2100L, 1L));
+        spinnerDiaFin.setModel(new javax.swing.SpinnerNumberModel(1, 1, 31, 1));
+        spinnerMesFin.setModel(new javax.swing.SpinnerNumberModel(1, 1, 12, 1));
+        spinnerAñoFin.setModel(new javax.swing.SpinnerNumberModel(2026L, 2000L, 2100L, 1L));
+        areaResultados.setEditable(false);
+        cargarProveedoresCombo();
     }
 
     /**
@@ -26,25 +33,150 @@ public class EstadisticasVista extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        botonBuscar = new javax.swing.JButton();
+        spinnerDiaInicio = new javax.swing.JSpinner();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        areaResultados = new javax.swing.JTextArea();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        spinnerMesInicio = new javax.swing.JSpinner();
+        spinnerAñoInicio = new javax.swing.JSpinner();
+        spinnerMesFin = new javax.swing.JSpinner();
+        spinnerAñoFin = new javax.swing.JSpinner();
+        spinnerDiaFin = new javax.swing.JSpinner();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        comboProveedor = new javax.swing.JComboBox<>();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
+        botonBuscar.setText("Ver estadisticas");
+        botonBuscar.addActionListener(this::botonBuscarActionPerformed);
+
+        areaResultados.setColumns(20);
+        areaResultados.setRows(5);
+        jScrollPane1.setViewportView(areaResultados);
+
+        jLabel3.setText("Fecha fin:");
+
+        jLabel4.setText("Fecha inicio:");
+
+        jLabel5.setText("Dia");
+
+        jLabel6.setText("Mes");
+
+        jLabel7.setText("Año");
+
+        jLabel8.setText("Proveedor");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1096, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(224, 224, 224)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel8))
+                        .addGap(35, 35, 35)
+                        .addComponent(botonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(101, 101, 101)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(spinnerDiaFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(spinnerMesFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(spinnerAñoFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(spinnerDiaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(9, 9, 9)
+                                        .addComponent(jLabel5)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel6)
+                                    .addComponent(spinnerMesInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel7)
+                                    .addComponent(spinnerAñoInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(comboProveedor, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(40, 40, 40)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 351, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(152, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 536, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(48, 48, 48)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel7))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel4)
+                            .addComponent(spinnerDiaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(spinnerMesInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(spinnerAñoInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(19, 19, 19)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(spinnerDiaFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(spinnerMesFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(spinnerAñoFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(33, 33, 33)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel8)
+                            .addComponent(comboProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 227, Short.MAX_VALUE)
+                        .addComponent(botonBuscar)))
+                .addGap(70, 70, 70))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void botonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBuscarActionPerformed
+        String diaInicio = String.format("%02d", ((Number) spinnerDiaInicio.getValue()).intValue());
+        String mesInicio = String.format("%02d", ((Number) spinnerMesInicio.getValue()).intValue());
+        String añoInicio = String.valueOf(((Number) spinnerAñoInicio.getValue()).intValue());
+        String fechaInicio = añoInicio + "-" + mesInicio + "-" + diaInicio;
+
+        String diaFin = String.format("%02d", ((Number) spinnerDiaFin.getValue()).intValue());
+        String mesFin = String.format("%02d", ((Number) spinnerMesFin.getValue()).intValue());
+        String añoFin = String.valueOf(((Number) spinnerAñoFin.getValue()).intValue());
+        String fechaFin = añoFin + "-" + mesFin + "-" + diaFin;
+
+        String idProveedor = comboProveedor.getSelectedItem().toString().equals("Todos") ? 
+                             "Todos" : comboProveedor.getSelectedItem().toString().split(" ")[0];
+        String resultado = controlador.obtenerEstadisticasRango(fechaInicio, fechaFin, idProveedor);
+        areaResultados.setText("Buscando entre: " + fechaInicio + " y " + fechaFin);
+        areaResultados.setText(resultado);
+    }//GEN-LAST:event_botonBuscarActionPerformed
+
     /**
      * @param args the command line arguments
      */
+    
+    private void cargarProveedoresCombo(){
+        comboProveedor.addItem("Todos");
+        List<Proveedor> lista = controlador.obtenerListaProveedores();
+        for(Proveedor p : lista){
+            comboProveedor.addItem(p.getId() + " - " + p.getNombre());
+        }
+    }
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -68,5 +200,21 @@ public class EstadisticasVista extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextArea areaResultados;
+    private javax.swing.JButton botonBuscar;
+    private javax.swing.JComboBox<String> comboProveedor;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JSpinner spinnerAñoFin;
+    private javax.swing.JSpinner spinnerAñoInicio;
+    private javax.swing.JSpinner spinnerDiaFin;
+    private javax.swing.JSpinner spinnerDiaInicio;
+    private javax.swing.JSpinner spinnerMesFin;
+    private javax.swing.JSpinner spinnerMesInicio;
     // End of variables declaration//GEN-END:variables
 }
