@@ -38,6 +38,7 @@ public class GestorProveedores {
         try(BufferedReader lector = new BufferedReader(new FileReader(rutaDatos))){
             String renglon;
             while((renglon = lector.readLine()) != null){
+                if(renglon.trim().isEmpty()) continue;
                 String[] atributosProveedor = renglon.split(";");
                 Proveedor proveedor = new Proveedor(atributosProveedor[0], atributosProveedor[1]);
                 listaProveedores.add(proveedor);
