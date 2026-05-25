@@ -1,13 +1,13 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package Vista;
+import Controlador.Controlador;
+import Persistencia.GestorProveedores;
+import Persistencia.GestorEntregas;
+import Persistencia.GestorPedidos;
+import Modelo.Pedido;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author sergi
- */
 public class HistorialVista extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(HistorialVista.class.getName());
@@ -15,8 +15,10 @@ public class HistorialVista extends javax.swing.JFrame {
     /**
      * Creates new form HistorialVista
      */
+    private Controlador controlador = new Controlador(new GestorProveedores(), new GestorEntregas(), new GestorPedidos());
     public HistorialVista() {
         initComponents();
+        cargarTabla(controlador.obtenerListaPedidos());
     }
 
     /**
@@ -26,25 +28,189 @@ public class HistorialVista extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        campoBuscarFecha = new javax.swing.JTextField();
+        campoBuscarId = new javax.swing.JTextField();
+        campoBuscarNombre = new javax.swing.JTextField();
+        botonBuscarFecha = new javax.swing.JButton();
+        botonBuscarNombre = new javax.swing.JButton();
+        botonBuscarId = new javax.swing.JButton();
+        botonCancelar = new javax.swing.JButton();
+        botonMostrarTodos = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tablaHistorial = new javax.swing.JTable();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
+        jLabel1.setText("Buscar por nombre proveedor: ");
+
+        jLabel2.setText("Buscar por fecha:");
+
+        jLabel3.setText("Buscar por ID proveedor:");
+
+        campoBuscarNombre.addActionListener(this::campoBuscarNombreActionPerformed);
+
+        botonBuscarFecha.setText("Buscar fecha");
+        botonBuscarFecha.addActionListener(this::botonBuscarFechaActionPerformed);
+
+        botonBuscarNombre.setText("Buscar nombre");
+        botonBuscarNombre.addActionListener(this::botonBuscarNombreActionPerformed);
+
+        botonBuscarId.setText("Buscar Id");
+        botonBuscarId.addActionListener(this::botonBuscarIdActionPerformed);
+
+        botonCancelar.setText("Cancelar");
+        botonCancelar.addActionListener(this::botonCancelarActionPerformed);
+
+        botonMostrarTodos.setText("Mostrar todos");
+        botonMostrarTodos.addActionListener(this::botonMostrarTodosActionPerformed);
+
+        tablaHistorial.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(tablaHistorial);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(58, 58, 58)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(46, 46, 46)
+                                .addComponent(botonMostrarTodos)
+                                .addGap(18, 18, 18)
+                                .addComponent(botonCancelar))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(botonBuscarFecha)
+                                .addGap(18, 18, 18)
+                                .addComponent(botonBuscarNombre)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(botonBuscarId))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(81, 81, 81)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2))
+                        .addGap(40, 40, 40)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(campoBuscarFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(campoBuscarNombre)
+                                .addComponent(campoBuscarId, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 79, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 604, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(52, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(34, 34, 34)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 386, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(34, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(84, 84, 84)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(campoBuscarId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(campoBuscarNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1))
+                        .addGap(12, 12, 12)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(campoBuscarFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2)))
+                    .addComponent(jLabel3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(botonBuscarFecha)
+                    .addComponent(botonBuscarNombre)
+                    .addComponent(botonBuscarId))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(botonMostrarTodos)
+                    .addComponent(botonCancelar))
+                .addGap(94, 94, 94))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void campoBuscarNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoBuscarNombreActionPerformed
+        String nombre = campoBuscarNombre.getText();
+        cargarTabla(controlador.buscarPorNombreProveedor(nombre));
+    }//GEN-LAST:event_campoBuscarNombreActionPerformed
+
+    private void botonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCancelarActionPerformed
+        int fila = tablaHistorial.getSelectedRow();
+        if(fila != -1){
+            String id = tablaHistorial.getValueAt(fila, 0).toString();
+            controlador.cancelarPedido(id);
+            cargarTabla(controlador.obtenerListaPedidos());
+        }
+        else{
+            JOptionPane.showMessageDialog(this, "Selecciona un pedido de la tabla primero");
+        }
+    }//GEN-LAST:event_botonCancelarActionPerformed
+
+    private void botonBuscarFechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBuscarFechaActionPerformed
+        String fecha = campoBuscarFecha.getText();
+        cargarTabla(controlador.buscarPorFecha(fecha));
+    }//GEN-LAST:event_botonBuscarFechaActionPerformed
+
+    private void botonBuscarIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBuscarIdActionPerformed
+        String id = campoBuscarId.getText();
+        cargarTabla(controlador.buscarPorIdProveedor(id));
+    }//GEN-LAST:event_botonBuscarIdActionPerformed
+
+    private void botonMostrarTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonMostrarTodosActionPerformed
+        cargarTabla(controlador.obtenerListaPedidos());
+    }//GEN-LAST:event_botonMostrarTodosActionPerformed
+
+    private void botonBuscarNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBuscarNombreActionPerformed
+        String nombre = campoBuscarNombre.getText();
+        cargarTabla(controlador.buscarPorNombreProveedor(nombre));
+    }//GEN-LAST:event_botonBuscarNombreActionPerformed
+
     /**
      * @param args the command line arguments
      */
+    private void cargarTabla(List<Pedido> lista){
+        DefaultTableModel modelo = new DefaultTableModel();
+        modelo.addColumn("ID");
+        modelo.addColumn("Fecha");
+        modelo.addColumn("Valor Total");
+        modelo.addColumn("Valor Acumulado");
+        modelo.addColumn("Estado");
+        modelo.addColumn("ID Proveedor");
+
+        for(Pedido pedido : lista){
+            modelo.addRow(new Object[]{
+                pedido.getId(),
+                pedido.getFecha(),
+                pedido.getValorTotal(),
+                pedido.getValorAcumulado(),
+                pedido.getEstado(),
+                pedido.getIdProveedor()
+            });
+        }
+        tablaHistorial.setModel(modelo);
+    }
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -68,5 +234,18 @@ public class HistorialVista extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton botonBuscarFecha;
+    private javax.swing.JButton botonBuscarId;
+    private javax.swing.JButton botonBuscarNombre;
+    private javax.swing.JButton botonCancelar;
+    private javax.swing.JButton botonMostrarTodos;
+    private javax.swing.JTextField campoBuscarFecha;
+    private javax.swing.JTextField campoBuscarId;
+    private javax.swing.JTextField campoBuscarNombre;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable tablaHistorial;
     // End of variables declaration//GEN-END:variables
 }

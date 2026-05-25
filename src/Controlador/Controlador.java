@@ -27,18 +27,52 @@ public class Controlador {
     
     public String generarIdEntrega(){
         List<Entrega> listaEntregas = gestorEntregas.cargarEntregas();
-        int numero = listaEntregas.size() + 1;
-        return "E" + String.format("%03d", numero);
+        int numeroInicial = 1;
+        while(true){
+            String candidato = "E" + String.format("%03d", numeroInicial);
+            boolean existe = false;
+            for(Entrega entreguita : listaEntregas){
+                if(entreguita.getId().equals(candidato)){
+                    existe = true;
+                    break;
+                }
+            }
+            if(!existe) return candidato;
+            numeroInicial++;
+        }
     }
     public String generarIdProveedor(){
         List<Proveedor> listaProveedores = gestorProveedores.cargarProveedores();
-        int numero = listaProveedores.size() + 1;
-        return "P" + String.format("%03d", numero);
+        int numeroInicial = 1;
+        while(true){
+            String candidato = "P" + String.format("%03d", numeroInicial);
+            boolean existe = false;
+            for(Proveedor proveedorcito : listaProveedores){
+                if(proveedorcito.getId().equals(candidato)){
+                    existe = true;
+                    break;
+                }
+            }
+            if(!existe) return candidato;
+            numeroInicial++;
+        }
     }
+
     public String generarIdPedido(){
         List<Pedido> listaPedidos = gestorPedidos.cargarPedidos();
-        int numero = listaPedidos.size() + 1;
-        return "P" + String.format("%03d", numero);
+        int numeroInicial = 1;
+        while(true){
+            String candidato = "P" + String.format("%03d", numeroInicial);
+            boolean existe = false;
+            for(Pedido pedidito : listaPedidos){
+                if(pedidito.getId().equals(candidato)){
+                    existe = true;
+                    break;
+                }
+            }
+            if(!existe) return candidato;
+            numeroInicial++;
+        }
     }
     
     //Obtener estadisticas
@@ -94,11 +128,11 @@ public class Controlador {
     public List<Pedido> buscarPorFecha(String fecha){
         List<Pedido> listaPedidos = gestorPedidos.cargarPedidos();
         List<Pedido> listaBuscados = new ArrayList<>();
-        for(Pedido pedidito : listaPedidos){
-            if(pedidito.getFecha().equals(fecha)){
-                listaBuscados.add(pedidito);
+            for(Pedido pedidito : listaPedidos){
+                if(pedidito.getFecha().contains(fecha)){
+                    listaBuscados.add(pedidito);
+                }
             }
-        }
         return listaBuscados;
     }
     
