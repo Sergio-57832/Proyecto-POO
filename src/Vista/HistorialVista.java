@@ -7,7 +7,7 @@ import Modelo.Pedido;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-
+import Modelo.Entrega;
 public class HistorialVista extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(HistorialVista.class.getName());
@@ -41,6 +41,7 @@ public class HistorialVista extends javax.swing.JFrame {
         botonMostrarTodos = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaHistorial = new javax.swing.JTable();
+        botonVerEntregas = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -80,26 +81,15 @@ public class HistorialVista extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tablaHistorial);
 
+        botonVerEntregas.setText("Ver entregas");
+        botonVerEntregas.addActionListener(this::botonVerEntregasActionPerformed);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(58, 58, 58)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(46, 46, 46)
-                                .addComponent(botonMostrarTodos)
-                                .addGap(18, 18, 18)
-                                .addComponent(botonCancelar))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(botonBuscarFecha)
-                                .addGap(18, 18, 18)
-                                .addComponent(botonBuscarNombre)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(botonBuscarId))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(81, 81, 81)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -111,10 +101,25 @@ public class HistorialVista extends javax.swing.JFrame {
                             .addComponent(campoBuscarFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(campoBuscarNombre)
-                                .addComponent(campoBuscarId, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 79, Short.MAX_VALUE)
+                                .addComponent(campoBuscarId, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(58, 58, 58)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(botonBuscarFecha)
+                                .addGap(18, 18, 18)
+                                .addComponent(botonBuscarNombre)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(botonBuscarId))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(botonMostrarTodos)
+                                .addGap(18, 18, 18)
+                                .addComponent(botonCancelar)
+                                .addGap(18, 18, 18)
+                                .addComponent(botonVerEntregas)))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 87, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 604, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(52, Short.MAX_VALUE))
+                .addContainerGap(44, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -144,7 +149,8 @@ public class HistorialVista extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botonMostrarTodos)
-                    .addComponent(botonCancelar))
+                    .addComponent(botonCancelar)
+                    .addComponent(botonVerEntregas))
                 .addGap(94, 94, 94))
         );
 
@@ -186,6 +192,26 @@ public class HistorialVista extends javax.swing.JFrame {
         String nombre = campoBuscarNombre.getText();
         cargarTabla(controlador.buscarPorNombreProveedor(nombre));
     }//GEN-LAST:event_botonBuscarNombreActionPerformed
+
+    private void botonVerEntregasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonVerEntregasActionPerformed
+        int fila = tablaHistorial.getSelectedRow();
+        if(fila != -1){
+            String idPedido = tablaHistorial.getValueAt(fila, 0).toString();
+            List<Entrega> entregas = controlador.obtenerEntregasPorPedido(idPedido);
+            StringBuilder sb = new StringBuilder();
+            sb.append("Entregas del pedido ").append(idPedido).append(":\n\n");
+            for(Entrega entreguitas : entregas){
+                sb.append("ID: ").append(entreguitas.getId())
+                  .append(" | Fecha: ").append(entreguitas.getFecha())
+                  .append(" | Hora: ").append(entreguitas.getHora())
+                  .append(" | Valor: $").append(entreguitas.getValorParcial())
+                  .append("\n");
+            }
+            JOptionPane.showMessageDialog(this, sb.toString());
+        }else{
+            JOptionPane.showMessageDialog(this, "Selecciona un pedido primero");
+        }
+    }//GEN-LAST:event_botonVerEntregasActionPerformed
 
     /**
      * @param args the command line arguments
@@ -239,6 +265,7 @@ public class HistorialVista extends javax.swing.JFrame {
     private javax.swing.JButton botonBuscarNombre;
     private javax.swing.JButton botonCancelar;
     private javax.swing.JButton botonMostrarTodos;
+    private javax.swing.JButton botonVerEntregas;
     private javax.swing.JTextField campoBuscarFecha;
     private javax.swing.JTextField campoBuscarId;
     private javax.swing.JTextField campoBuscarNombre;

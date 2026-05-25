@@ -16,6 +16,9 @@ public class RegistrarEntregaVista extends javax.swing.JFrame {
     private Controlador controlador = new Controlador(new GestorProveedores(), new GestorEntregas(), new GestorPedidos());
     public RegistrarEntregaVista() {
         initComponents();
+        spinnerDia.setModel(new javax.swing.SpinnerNumberModel(1, 1, 31, 1));
+        spinnerMes.setModel(new javax.swing.SpinnerNumberModel(1, 1, 12, 1));
+        spinnerAño.setModel(new javax.swing.SpinnerNumberModel(2024, 2000, 2100, 1));
         campoId.setText(controlador.generarIdEntrega());
         campoId.setEditable(false);
         cargarPedidosCombo();
@@ -36,10 +39,15 @@ public class RegistrarEntregaVista extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         campoId = new javax.swing.JTextField();
         comboPedido = new javax.swing.JComboBox<>();
-        campoFecha = new javax.swing.JTextField();
         campoHora = new javax.swing.JTextField();
         campoValorParcial = new javax.swing.JTextField();
         botonRegistrarEntrega = new javax.swing.JButton();
+        spinnerDia = new javax.swing.JSpinner();
+        spinnerMes = new javax.swing.JSpinner();
+        spinnerAño = new javax.swing.JSpinner();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
 
         jLabel1.setText("jLabel1");
 
@@ -60,31 +68,56 @@ public class RegistrarEntregaVista extends javax.swing.JFrame {
         botonRegistrarEntrega.setText("Registrar");
         botonRegistrarEntrega.addActionListener(this::botonRegistrarEntregaActionPerformed);
 
+        jLabel5.setText("Dia:");
+
+        jLabel7.setText("Mes:");
+
+        jLabel8.setText("Año:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(425, 425, 425)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(425, 425, 425)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(Id)
                             .addComponent(jLabel6)
                             .addComponent(jLabel3)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel2))
-                        .addGap(32, 32, 32)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(comboPedido, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(campoFecha)
-                            .addComponent(campoId)
-                            .addComponent(campoHora, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(campoValorParcial, javax.swing.GroupLayout.Alignment.TRAILING)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(471, 471, 471)
-                        .addComponent(botonRegistrarEntrega)))
-                .addContainerGap(514, Short.MAX_VALUE))
+                            .addComponent(jLabel4))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 95, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(campoId, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(comboPedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(326, 326, 326))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(95, 95, 95)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(campoValorParcial, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(campoHora, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 0, Short.MAX_VALUE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addGap(29, 29, 29)
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(spinnerDia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(spinnerMes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel8)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(spinnerAño, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(471, 471, 471)
+                .addComponent(botonRegistrarEntrega)
+                .addGap(284, 284, 284))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -100,7 +133,12 @@ public class RegistrarEntregaVista extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(campoFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(spinnerDia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(spinnerMes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(spinnerAño, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel7)
+                    .addComponent(jLabel8))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
@@ -120,7 +158,10 @@ public class RegistrarEntregaVista extends javax.swing.JFrame {
     private void botonRegistrarEntregaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegistrarEntregaActionPerformed
         String id = campoId.getText();
         String idPedido = comboPedido.getSelectedItem().toString().split(" ")[0];
-        String fecha = campoFecha.getText();
+        String dia = String.format("%02d", (int) spinnerDia.getValue());
+        String mes = String.format("%02d", (int) spinnerMes.getValue());
+        String año = String.format("%04d", (int) spinnerAño.getValue());
+        String fecha = año + "-" + mes + "-" + dia;
         String hora = campoHora.getText();
         double valorParcial = Double.parseDouble(campoValorParcial.getText());
         String resultado = controlador.registrarEntrega(id, idPedido, fecha, hora, valorParcial);
@@ -136,10 +177,17 @@ public class RegistrarEntregaVista extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     private void cargarPedidosCombo(){
-    List<Pedido> lista = controlador.obtenerListaPedidos();
+        List<Pedido> lista = controlador.obtenerListaPedidos();
         for(Pedido pedido : lista){
             if(pedido.getEstado().equals("Pendiente") || pedido.getEstado().equals("Incompleto")){
-                comboPedido.addItem(pedido.getId() + " - $" + pedido.getValorTotal());
+                String nombreProveedor = controlador.buscarPorIdProveedor(pedido.getIdProveedor()).isEmpty() ? 
+                     pedido.getIdProveedor() : 
+                    controlador.obtenerListaProveedores().stream()
+                    .filter(p -> p.getId().equals(pedido.getIdProveedor()))
+                    .findFirst()
+                    .map(p -> p.getNombre())
+                    .orElse(pedido.getIdProveedor());
+                    comboPedido.addItem(pedido.getId() + " - " + nombreProveedor + " - $" + pedido.getValorTotal());
             }
         }
     }
@@ -168,7 +216,6 @@ public class RegistrarEntregaVista extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Id;
     private javax.swing.JButton botonRegistrarEntrega;
-    private javax.swing.JTextField campoFecha;
     private javax.swing.JTextField campoHora;
     private javax.swing.JTextField campoId;
     private javax.swing.JTextField campoValorParcial;
@@ -177,6 +224,12 @@ public class RegistrarEntregaVista extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JSpinner spinnerAño;
+    private javax.swing.JSpinner spinnerDia;
+    private javax.swing.JSpinner spinnerMes;
     // End of variables declaration//GEN-END:variables
 }

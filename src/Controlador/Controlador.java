@@ -57,7 +57,6 @@ public class Controlador {
             numeroInicial++;
         }
     }
-
     public String generarIdPedido(){
         List<Pedido> listaPedidos = gestorPedidos.cargarPedidos();
         int numeroInicial = 1;
@@ -178,6 +177,16 @@ public class Controlador {
     
     //Entrega
     
+    public List<Entrega> obtenerEntregasPorPedido(String idPedido){
+    List<Entrega> todas = gestorEntregas.cargarEntregas();
+    List<Entrega> resultado = new ArrayList<>();
+        for(Entrega entreguitas : todas){
+            if(entreguitas.getIdPedido().equals(idPedido)){
+                resultado.add(entreguitas);
+            }
+        }
+    return resultado;
+}
     public String registrarEntrega(String id, String idPedido, String fecha, String hora, double valorParcial){
     List<Pedido> listaPedidos = obtenerListaPedidos();
     //validar que no se supera el valor total
