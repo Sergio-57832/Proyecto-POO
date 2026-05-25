@@ -1,13 +1,11 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package Vista;
-
-/**
- *
- * @author sergi
- */
+import Controlador.Controlador;
+import Persistencia.GestorProveedores;
+import Persistencia.GestorEntregas;
+import Persistencia.GestorPedidos;
+import Modelo.Pedido;
+import java.util.List;
+import javax.swing.JOptionPane;
 public class RegistrarEntregaVista extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(RegistrarEntregaVista.class.getName());
@@ -15,8 +13,12 @@ public class RegistrarEntregaVista extends javax.swing.JFrame {
     /**
      * Creates new form RegistrarEntregaVista
      */
+    private Controlador controlador = new Controlador(new GestorProveedores(), new GestorEntregas(), new GestorPedidos());
     public RegistrarEntregaVista() {
         initComponents();
+        campoId.setText(controlador.generarIdEntrega());
+        campoId.setEditable(false);
+        cargarPedidosCombo();
     }
 
     /**
@@ -26,25 +28,121 @@ public class RegistrarEntregaVista extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        Id = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        campoId = new javax.swing.JTextField();
+        comboPedido = new javax.swing.JComboBox<>();
+        campoFecha = new javax.swing.JTextField();
+        campoHora = new javax.swing.JTextField();
+        campoValorParcial = new javax.swing.JTextField();
+        botonRegistrarEntrega = new javax.swing.JButton();
+
+        jLabel1.setText("jLabel1");
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
+        jLabel2.setText("Fecha:");
+
+        jLabel3.setText("Hora:");
+
+        jLabel4.setText("Pedido:");
+
+        Id.setText("ID:");
+
+        jLabel6.setText("Valor Parcial:");
+
+        comboPedido.addActionListener(this::comboPedidoActionPerformed);
+
+        botonRegistrarEntrega.setText("Registrar");
+        botonRegistrarEntrega.addActionListener(this::botonRegistrarEntregaActionPerformed);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(425, 425, 425)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(Id)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel2))
+                        .addGap(32, 32, 32)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(comboPedido, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(campoFecha)
+                            .addComponent(campoId)
+                            .addComponent(campoHora, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(campoValorParcial, javax.swing.GroupLayout.Alignment.TRAILING)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(471, 471, 471)
+                        .addComponent(botonRegistrarEntrega)))
+                .addContainerGap(514, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(106, 106, 106)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Id)
+                    .addComponent(campoId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(comboPedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(campoFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(campoHora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(campoValorParcial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(30, 30, 30)
+                .addComponent(botonRegistrarEntrega)
+                .addContainerGap(185, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void botonRegistrarEntregaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegistrarEntregaActionPerformed
+        String id = campoId.getText();
+        String idPedido = comboPedido.getSelectedItem().toString().split(" ")[0];
+        String fecha = campoFecha.getText();
+        String hora = campoHora.getText();
+        double valorParcial = Double.parseDouble(campoValorParcial.getText());
+        String resultado = controlador.registrarEntrega(id, idPedido, fecha, hora, valorParcial);
+        JOptionPane.showMessageDialog(this, resultado);
+        campoId.setText(controlador.generarIdEntrega());
+    }//GEN-LAST:event_botonRegistrarEntregaActionPerformed
+
+    private void comboPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboPedidoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboPedidoActionPerformed
+
     /**
      * @param args the command line arguments
      */
+    private void cargarPedidosCombo(){
+    List<Pedido> lista = controlador.obtenerListaPedidos();
+        for(Pedido pedido : lista){
+            if(pedido.getEstado().equals("Pendiente") || pedido.getEstado().equals("Incompleto")){
+                comboPedido.addItem(pedido.getId() + " - $" + pedido.getValorTotal());
+            }
+        }
+    }
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -68,5 +166,17 @@ public class RegistrarEntregaVista extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel Id;
+    private javax.swing.JButton botonRegistrarEntrega;
+    private javax.swing.JTextField campoFecha;
+    private javax.swing.JTextField campoHora;
+    private javax.swing.JTextField campoId;
+    private javax.swing.JTextField campoValorParcial;
+    private javax.swing.JComboBox<String> comboPedido;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel6;
     // End of variables declaration//GEN-END:variables
 }

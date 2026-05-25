@@ -51,8 +51,6 @@ public class RegistrarPedidoVista extends javax.swing.JFrame {
         botonRegistrar.setText("Registrar");
         botonRegistrar.addActionListener(this::botonRegistrarActionPerformed);
 
-        comboProveedor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -114,6 +112,7 @@ public class RegistrarPedidoVista extends javax.swing.JFrame {
         String idProveedor = comboProveedor.getSelectedItem().toString().split(" ")[0];
         controlador.registrarPedido(id, fecha, valorTotal, idProveedor);
         JOptionPane.showMessageDialog(this, "Pedido registrado exitosamente");
+        campoId.setText(controlador.generarIdPedido());
     }//GEN-LAST:event_botonRegistrarActionPerformed
 
     /**

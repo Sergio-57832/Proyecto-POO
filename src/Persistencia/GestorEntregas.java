@@ -46,6 +46,7 @@ public class GestorEntregas {
         try(BufferedReader lector = new BufferedReader(new FileReader(rutaDatos))){
             String renglon;
             while((renglon = lector.readLine()) != null){
+                if(renglon.trim().isEmpty()) continue;
                 String[] atributosEntrega = renglon.split(";");
                 Entrega entrega = new Entrega(atributosEntrega[0],
                                                 atributosEntrega[1],
