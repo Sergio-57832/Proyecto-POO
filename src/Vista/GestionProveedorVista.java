@@ -6,6 +6,7 @@ import Persistencia.GestorPedidos;
 import javax.swing.table.DefaultTableModel;
 import java.util.List;
 import Modelo.Proveedor;
+import javax.swing.JOptionPane;
 public class GestionProveedorVista extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(GestionProveedorVista.class.getName());
@@ -14,6 +15,8 @@ public class GestionProveedorVista extends javax.swing.JFrame {
     public GestionProveedorVista() {
         initComponents();
         cargarTabla();
+        campoId.setText(controlador.generarIdProveedor());
+        campoId.setEditable(false);
     }
 
     /**
@@ -32,7 +35,7 @@ public class GestionProveedorVista extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         botonAgregar.setText("Agregar proveedor");
         botonAgregar.addActionListener(this::botonAgregarActionPerformed);
@@ -114,12 +117,21 @@ public class GestionProveedorVista extends javax.swing.JFrame {
         String nombre = campoNombre.getText();
         controlador.registrarProveedor(id, nombre);
         cargarTabla();
+        campoId.setText(controlador.generarIdProveedor());
+        campoNombre.setText("");
     }//GEN-LAST:event_botonAgregarActionPerformed
 
     private void botonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEliminarActionPerformed
-        String id = campoId.getText();
-        controlador.eliminarProveedor(id);
-        cargarTabla();
+        
+        int fila = tablaProveedores.getSelectedRow();
+        if(fila != -1){
+            String id = tablaProveedores.getValueAt(fila, 0).toString();
+            controlador.eliminarProveedor(id);
+            cargarTabla();
+            tablaProveedores.clearSelection();
+        } else {
+            JOptionPane.showMessageDialog(this, "Selecciona un proveedor de la tabla primero");
+        }
     }//GEN-LAST:event_botonEliminarActionPerformed
 
     private void campoNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoNombreActionPerformed

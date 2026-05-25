@@ -23,6 +23,24 @@ public class Controlador {
         this.gestorPedidos = gestorPedidos;
     }
     
+    //GenerarID
+    
+    public String generarIdEntrega(){
+        List<Entrega> listaEntregas = gestorEntregas.cargarEntregas();
+        int numero = listaEntregas.size() + 1;
+        return "E" + String.format("%03d", numero);
+    }
+    public String generarIdProveedor(){
+        List<Proveedor> listaProveedores = gestorProveedores.cargarProveedores();
+        int numero = listaProveedores.size() + 1;
+        return "P" + String.format("%03d", numero);
+    }
+    public String generarIdPedido(){
+        List<Pedido> listaPedidos = gestorPedidos.cargarPedidos();
+        int numero = listaPedidos.size() + 1;
+        return "P" + String.format("%03d", numero);
+    }
+    
     //Obtener estadisticas
     
     public String obtenerEstadisticasMes(String mes){

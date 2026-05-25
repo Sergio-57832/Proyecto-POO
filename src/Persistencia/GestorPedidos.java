@@ -47,6 +47,7 @@ public class GestorPedidos {
         try(BufferedReader lector = new BufferedReader(new FileReader(rutaDatos))){
             String renglon;
             while((renglon = lector.readLine()) != null){
+            if(renglon.trim().isEmpty()) continue;
             String[] atributosPedidos = renglon.split(";");
             Pedido pedido = new Pedido(atributosPedidos[0], 
                                         atributosPedidos[1], 

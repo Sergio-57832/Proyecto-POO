@@ -1,13 +1,11 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package Vista;
-
-/**
- *
- * @author sergi
- */
+import Controlador.Controlador;
+import Persistencia.GestorProveedores;
+import Persistencia.GestorEntregas;
+import Persistencia.GestorPedidos;
+import Modelo.Proveedor;
+import java.util.List;
+import javax.swing.JOptionPane;
 public class RegistrarPedidoVista extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(RegistrarPedidoVista.class.getName());
@@ -15,8 +13,12 @@ public class RegistrarPedidoVista extends javax.swing.JFrame {
     /**
      * Creates new form RegistrarPedidoVista
      */
+    private Controlador controlador = new Controlador(new GestorProveedores(), new GestorEntregas(), new GestorPedidos());
     public RegistrarPedidoVista() {
         initComponents();
+        cargarProveedoresCombo();
+        campoId.setText(controlador.generarIdPedido());
+        campoId.setEditable(false);
     }
 
     /**
@@ -26,25 +28,103 @@ public class RegistrarPedidoVista extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        idPedido = new javax.swing.JLabel();
+        campoId = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        campoFecha = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        campoValorTotal = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        botonRegistrar = new javax.swing.JButton();
+        comboProveedor = new javax.swing.JComboBox<>();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
+        idPedido.setText("ID:");
+
+        jLabel2.setText("Fecha:");
+
+        jLabel3.setText("ValorTotal");
+
+        jLabel4.setText("Proveedor:");
+
+        botonRegistrar.setText("Registrar");
+        botonRegistrar.addActionListener(this::botonRegistrarActionPerformed);
+
+        comboProveedor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(414, 414, 414)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(idPedido, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addGap(22, 22, 22)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(comboProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGap(72, 72, 72)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(campoValorTotal, javax.swing.GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE)
+                                    .addComponent(campoFecha)
+                                    .addComponent(campoId)))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(478, 478, 478)
+                        .addComponent(botonRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(438, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(87, 87, 87)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(idPedido)
+                    .addComponent(campoId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(campoFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(campoValorTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(comboProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(50, 50, 50)
+                .addComponent(botonRegistrar)
+                .addContainerGap(176, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void botonRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegistrarActionPerformed
+        String id = campoId.getText();
+        String fecha = campoFecha.getText();
+        double valorTotal = Double.parseDouble(campoValorTotal.getText());
+        String idProveedor = comboProveedor.getSelectedItem().toString().split(" ")[0];
+        controlador.registrarPedido(id, fecha, valorTotal, idProveedor);
+        JOptionPane.showMessageDialog(this, "Pedido registrado exitosamente");
+    }//GEN-LAST:event_botonRegistrarActionPerformed
+
     /**
      * @param args the command line arguments
      */
+    private void cargarProveedoresCombo(){
+        List<Proveedor> listaProveedores = controlador.obtenerListaProveedores();
+        for(Proveedor proveedorcito : listaProveedores){
+            comboProveedor.addItem(proveedorcito.getId() + " " + proveedorcito.getNombre());
+        }
+    }
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -68,5 +148,14 @@ public class RegistrarPedidoVista extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton botonRegistrar;
+    private javax.swing.JTextField campoFecha;
+    private javax.swing.JTextField campoId;
+    private javax.swing.JTextField campoValorTotal;
+    private javax.swing.JComboBox<String> comboProveedor;
+    private javax.swing.JLabel idPedido;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     // End of variables declaration//GEN-END:variables
 }

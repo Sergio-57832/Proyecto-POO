@@ -1,3 +1,5 @@
-identificador;nombre
 P001;Colombina
-P002;Colombina
+P002;Nestle
+P003;Cream Helado
+P005;serieB
+P006;SerieA
