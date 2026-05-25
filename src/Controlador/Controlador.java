@@ -10,7 +10,6 @@ import Modelo.Pedido;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Iterator;
-import java.util.Set;
 
 public class Controlador {
     
@@ -28,21 +27,21 @@ public class Controlador {
     
     public String obtenerEstadisticasMes(String mes){
         List<Pedido> listaPedidos = gestorPedidos.cargarPedidos();
-        int cantidad = 0;
-        double sumatoria = 0;
+        int cantidadPedidos = 0;
+        double sumatoriaValorPedidos = 0;
         Pedido pedidoMayor = null;
         for(Pedido pedidito : listaPedidos){
             if(pedidito.getFecha().contains(mes)){
-                cantidad++;
-                sumatoria += pedidito.getValorTotal();
+                cantidadPedidos++;
+                sumatoriaValorPedidos += pedidito.getValorTotal();
                 if(pedidoMayor == null || pedidito.getValorTotal()>pedidoMayor.getValorTotal()){
                     pedidoMayor = pedidito;
                 }
             }
             
         }
-        return ("Cantidad de pedidos: " + cantidad +
-                "\nSumatoria total: " + sumatoria +
+        return ("Cantidad de pedidos: " + cantidadPedidos +
+                "\nSumatoria total: " + sumatoriaValorPedidos +
                 "\nPedido de mayor valor: " + 
                 (pedidoMayor != null ? pedidoMayor.getId() + " - $" + pedidoMayor.getValorTotal() : "No hay pedidos"));
     }
