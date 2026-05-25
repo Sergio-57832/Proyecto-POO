@@ -12,6 +12,21 @@ public class GestorEntregas {
     
     private static final String rutaDatos = "Datos/entregas.txt";
     
+    public void guardarTodos(List<Entrega> lista){
+        try(BufferedWriter escritor = new BufferedWriter(new FileWriter(rutaDatos))){
+            for(Entrega entreguitas : lista){
+                escritor.write(entreguitas.getId() + ";" 
+                                + entreguitas.getIdPedido() + ";" 
+                                + entreguitas.getFecha() + ";" 
+                                + entreguitas.getHora() + ";"
+                                + entreguitas.getValorParcial());
+                escritor.newLine();
+            }
+        }catch(IOException error){
+            System.out.println("Error al guardar todos: " + error.getMessage());
+        }
+    }
+    
     public void guardarEntregas(Entrega entrega){
     
         try(BufferedWriter escritor = new BufferedWriter(new FileWriter(rutaDatos,true))){

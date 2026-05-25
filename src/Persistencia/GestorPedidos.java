@@ -12,6 +12,22 @@ public class GestorPedidos {
 
     private static final String rutaDatos = "Datos/pedidos.txt";
 
+    public void guardarTodos(List<Pedido> lista){
+        try(BufferedWriter escritor = new BufferedWriter(new FileWriter(rutaDatos))){
+            for(Pedido pediditos : lista){
+                escritor.write(pediditos.getId() + ";" 
+                                + pediditos.getFecha() + ";" 
+                                + pediditos.getValorAcumulado() + ";" 
+                                + pediditos.getValorTotal() + ";"
+                                + pediditos.getEstado() + ";"
+                                + pediditos.getIdProveedor());
+                escritor.newLine();
+            }
+        }catch(IOException error){
+            System.out.println("Error al guardar todos: " + error.getMessage());
+        }
+    }
+    
     public void guardarPedido(Pedido pedido){
         try(BufferedWriter escritor = new BufferedWriter(new FileWriter(rutaDatos, true))){
             escritor.write(pedido.getId() + ";"
