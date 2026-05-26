@@ -216,27 +216,27 @@ public class HistorialVista extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    private void cargarTabla(List<Pedido> lista){
-        DefaultTableModel modelo = new DefaultTableModel();
-        modelo.addColumn("ID");
-        modelo.addColumn("Fecha");
-        modelo.addColumn("Valor Total");
-        modelo.addColumn("Valor Acumulado");
-        modelo.addColumn("Estado");
-        modelo.addColumn("ID Proveedor");
+        private void cargarTabla(List<Pedido> lista){
+            DefaultTableModel modelo = new DefaultTableModel();
+            modelo.addColumn("ID");
+            modelo.addColumn("Fecha");
+            modelo.addColumn("Valor Total");
+            modelo.addColumn("Valor Acumulado");
+            modelo.addColumn("Estado");
+            modelo.addColumn("ID Proveedor");
 
-        for(Pedido pedido : lista){
-            modelo.addRow(new Object[]{
-                pedido.getId(),
-                pedido.getFecha(),
-                pedido.getValorTotal(),
-                pedido.getValorAcumulado(),
-                pedido.getEstado(),
-                pedido.getIdProveedor()
-            });
+            for(Pedido pedido : lista){
+                modelo.addRow(new Object[]{
+                    pedido.getId(),
+                    pedido.getFecha(),
+                    pedido.getValorTotal(),
+                    pedido.getValorAcumulado(),
+                    pedido.getEstado(),
+                    pedido.getIdProveedor()
+                });
+            }
+            tablaHistorial.setModel(modelo);
         }
-        tablaHistorial.setModel(modelo);
-    }
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
