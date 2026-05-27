@@ -7,5 +7,4 @@ P001;Seryo
 P003;Bros
 P004;Serie25
 P009;Paulix
-P012;Nuevo proveedor
-P010;Nuevo Proveedor
+P011;BenjiTec

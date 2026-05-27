@@ -12,6 +12,7 @@ public class ProyectoPOO {
         
         //Otra libreria externa como FlatLaf osea que tambien hay que descargarla
         //JTatto
+        //Hola
         
         new Vista.MenuPrincipalVista().setVisible(true);
         
