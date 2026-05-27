@@ -27,6 +27,39 @@ public class RegistrarEntregaVista extends javax.swing.JFrame {
         campoId.setText(controlador.generarIdEntrega());
         campoId.setEditable(false);
         cargarPedidosCombo();
+
+        getContentPane().setBackground(new java.awt.Color(30, 80, 120));
+        setTitle("PaperDesk — Registrar Entrega");
+
+        java.awt.Font fuenteLabel = new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 13);
+        java.awt.Color colorBlanco = java.awt.Color.WHITE;
+
+        Id.setForeground(colorBlanco);
+        Id.setFont(fuenteLabel);
+        jLabel1.setForeground(colorBlanco);
+        jLabel1.setFont(fuenteLabel);
+        jLabel2.setForeground(colorBlanco);
+        jLabel2.setFont(fuenteLabel);
+        jLabel3.setForeground(colorBlanco);
+        jLabel3.setFont(fuenteLabel);
+        jLabel4.setForeground(colorBlanco);
+        jLabel4.setFont(fuenteLabel);
+        jLabel6.setForeground(colorBlanco);
+        jLabel6.setFont(fuenteLabel);
+
+        botonRegistrarEntrega.setBackground(new java.awt.Color(39, 174, 96));
+        botonRegistrarEntrega.setForeground(java.awt.Color.WHITE);
+        botonRegistrarEntrega.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 14));
+        botonRegistrarEntrega.setFocusPainted(false);
+        botonRegistrarEntrega.setBorderPainted(false);
+        botonRegistrarEntrega.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        javax.swing.JLabel labelTitulo = new javax.swing.JLabel("Registrar Entrega");
+        labelTitulo.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 24));
+        labelTitulo.setForeground(java.awt.Color.WHITE);
+        labelTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        getContentPane().add(labelTitulo, java.awt.BorderLayout.NORTH);
+        
         comboPedido.setEditable(true);
         javax.swing.JTextField editor = (javax.swing.JTextField) comboPedido.getEditor().getEditorComponent();
         editor.addKeyListener(new java.awt.event.KeyAdapter() {
