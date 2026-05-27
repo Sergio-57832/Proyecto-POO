@@ -212,7 +212,6 @@ public class HistorialVista extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Selecciona un pedido primero");
         }
     }//GEN-LAST:event_botonVerEntregasActionPerformed
-
     /**
      * @param args the command line arguments
      */
