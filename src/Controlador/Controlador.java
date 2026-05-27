@@ -212,24 +212,23 @@ public class Controlador {
     return resultado;
 }
     public String registrarEntrega(String id, String idPedido, String fecha, String hora, double valorParcial){
-    List<Pedido> listaPedidos = obtenerListaPedidos();
-    //validar que no se supera el valor total
-    for(Pedido pedidito : listaPedidos){
-        if(pedidito.getId().equals(idPedido)){
-            if(pedidito.getValorAcumulado() + valorParcial > pedidito.getValorTotal()){
-                return "Error: el valor de la entrega supera el total del pedido";
-            }
-        }
-    }
-    Entrega entrega = new Entrega(id, idPedido, fecha, hora, valorParcial);
-    gestorEntregas.guardarEntregas(entrega);
+        List<Pedido> listaPedidos = obtenerListaPedidos();
         for(Pedido pedidito : listaPedidos){
             if(pedidito.getId().equals(idPedido)){
-                pedidito.setValorAcumulado(pedidito.getValorAcumulado()+ valorParcial);
+                if(pedidito.getValorAcumulado() + valorParcial > pedidito.getValorTotal()){
+                    double faltante = pedidito.getValorTotal() - pedidito.getValorAcumulado();
+                    return "No se puede registrar la entrega. Al sumarla se superaría el valor total del pedido. Falta por completar: $" + faltante;
+                }
+            }
+        }
+        Entrega entrega = new Entrega(id, idPedido, fecha, hora, valorParcial);
+        gestorEntregas.guardarEntregas(entrega);
+        for(Pedido pedidito : listaPedidos){
+            if(pedidito.getId().equals(idPedido)){
+                pedidito.setValorAcumulado(pedidito.getValorAcumulado() + valorParcial);
                 if(pedidito.getValorAcumulado() >= pedidito.getValorTotal()){
                     pedidito.setEstado("Recibido");
-                }
-                else if(pedidito.getValorAcumulado()>0){
+                } else if(pedidito.getValorAcumulado() > 0){
                     pedidito.setEstado("Incompleto");
                 }
             }

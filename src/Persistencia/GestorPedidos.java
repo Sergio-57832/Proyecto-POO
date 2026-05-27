@@ -15,13 +15,13 @@ public class GestorPedidos {
     public void guardarTodos(List<Pedido> lista){
         try(BufferedWriter escritor = new BufferedWriter(new FileWriter(rutaDatos))){
             for(Pedido pediditos : lista){
-                escritor.write(pediditos.getId() + ";" 
-                                + pediditos.getFecha() + ";" 
-                                + pediditos.getValorAcumulado() + ";" 
-                                + pediditos.getValorTotal() + ";"
-                                + pediditos.getEstado() + ";"
-                                + pediditos.getIdProveedor());
-                escritor.newLine();
+                escritor.write(pediditos.getId() + ";"
+                            + pediditos.getFecha() + ";"
+                            + pediditos.getValorTotal() + ";"
+                            + pediditos.getValorAcumulado() + ";"
+                            + pediditos.getEstado() + ";"
+                            + pediditos.getIdProveedor());
+            escritor.newLine();
             }
         }catch(IOException error){
             System.out.println("Error al guardar todos: " + error.getMessage());

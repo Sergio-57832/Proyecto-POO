@@ -131,6 +131,10 @@ public class RegistrarPedidoVista extends javax.swing.JFrame {
             return;
         }
         String fechaStr = fecha.toString();
+        if(campoValorTotal.getText().trim().isEmpty()){
+        JOptionPane.showMessageDialog(this, "El valor total no puede estar vacío");
+        return;
+        }
         double valorTotal = Double.parseDouble(campoValorTotal.getText());
         String idProveedor = comboProveedor.getSelectedItem().toString().split(" ")[0];
         controlador.registrarPedido(id, fechaStr, valorTotal, idProveedor);
