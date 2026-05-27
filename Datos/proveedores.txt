@@ -2,9 +2,7 @@ P002;Nestle
 P005;SerieA
 P006;Zanman
 P007;Octopus
-P008;CorreasLex
 P003;Bros
 P004;Serie25
 P009;Paulix
 P011;BenjiTec
-P010;nombre
