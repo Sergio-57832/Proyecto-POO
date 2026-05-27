@@ -114,7 +114,11 @@ public class GestionProveedorVista extends javax.swing.JFrame {
 
     private void botonAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAgregarActionPerformed
         String id = campoId.getText();
-        String nombre = campoNombre.getText();
+        String nombre = campoNombre.getText().trim();
+        if(nombre.isEmpty()){
+            JOptionPane.showMessageDialog(this, "El nombre del proveedor no puede estar vacío");
+            return;
+        }
         controlador.registrarProveedor(id, nombre);
         cargarTabla();
         campoId.setText(controlador.generarIdProveedor());
