@@ -211,13 +211,19 @@ public class Controlador {
         }
     return resultado;
 }
-    public String registrarEntrega(String id, String idPedido, String fecha, String hora, double valorParcial){
+        public String registrarEntrega(String id, String idPedido, String fecha, String hora, double valorParcial){
         List<Pedido> listaPedidos = obtenerListaPedidos();
         for(Pedido pedidito : listaPedidos){
             if(pedidito.getId().equals(idPedido)){
                 if(pedidito.getValorAcumulado() + valorParcial > pedidito.getValorTotal()){
                     double faltante = pedidito.getValorTotal() - pedidito.getValorAcumulado();
-                    return "No se puede registrar la entrega. Al sumarla se superaría el valor total del pedido. Falta por completar: $" + faltante;
+                    double exceso = (pedidito.getValorAcumulado() + valorParcial) - pedidito.getValorTotal();
+                    return String.format(
+                        "No se puede registrar la entrega.\n" +
+                        "El valor ingresado ($%.2f) excede en $%.2f lo permitido.\n" +
+                        "Valor máximo que puedes registrar: $%.2f",
+                        valorParcial, exceso, faltante
+                    );
                 }
             }
         }
