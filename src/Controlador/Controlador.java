@@ -76,16 +76,18 @@ public class Controlador {
     
     //Obtener estadisticas
     
-    public String obtenerEstadisticasRango(String fechaInicio, String fechaFin, String idProveedor){
+    public String obtenerEstadisticasRango(String fechaInicio, String fechaFin, List<String> idsProveedores){
         List<Pedido> listaPedidos = gestorPedidos.cargarPedidos();
         int cantidad = 0;
         double sumatoria = 0;
+        int recibidos = 0, incompletos = 0, pendientes = 0;
         Pedido pedidoMayor = null;
-    
+        java.util.Map<String, Integer> conteoPorProveedor = new java.util.HashMap<>();
+
         for(Pedido pedidito : listaPedidos){
             boolean enRango = pedidito.getFecha().compareTo(fechaInicio) >= 0 && 
                               pedidito.getFecha().compareTo(fechaFin) <= 0;
-                                boolean esProveedor = idProveedor.equals("Todos") || pedidito.getIdProveedor().equals(idProveedor);
+            boolean esProveedor = idsProveedores.isEmpty() || idsProveedores.contains(pedidito.getIdProveedor());
 
             if(enRango && esProveedor){
                 cantidad++;
@@ -93,12 +95,40 @@ public class Controlador {
                 if(pedidoMayor == null || pedidito.getValorTotal() > pedidoMayor.getValorTotal()){
                     pedidoMayor = pedidito;
                 }
+                switch(pedidito.getEstado()){
+                    case "Recibido": recibidos++; break;
+                    case "Incompleto": incompletos++; break;
+                    case "Pendiente": pendientes++; break;
+                }
+                conteoPorProveedor.merge(pedidito.getIdProveedor(), 1, Integer::sum);
             }
         }
-        return ("Cantidad de pedidos: " + cantidad +
-                "\nSumatoria total: $" + sumatoria +
-                "\nPedido de mayor valor: " + 
-                (pedidoMayor != null ? pedidoMayor.getId() + " - $" + pedidoMayor.getValorTotal() : "No hay pedidos"));
+
+        double promedio = cantidad > 0 ? sumatoria / cantidad : 0;
+        String proveedorMas = conteoPorProveedor.entrySet().stream()
+            .max(java.util.Map.Entry.comparingByValue())
+            .map(e -> e.getKey() + " (" + e.getValue() + " pedidos)")
+            .orElse("N/A");
+
+        return String.format(
+            "=== ESTADÍSTICAS DEL PERÍODO ===\n" +
+            "Desde: %s  Hasta: %s\n\n" +
+            "Total de pedidos: %d\n" +
+            "Sumatoria total: $%.2f\n" +
+            "Valor promedio por pedido: $%.2f\n\n" +
+            "=== ESTADOS ===\n" +
+            "Recibidos: %d\n" +
+            "Incompletos: %d\n" +
+            "Pendientes: %d\n\n" +
+            "=== DESTACADOS ===\n" +
+            "Pedido de mayor valor: %s\n" +
+            "Proveedor con más pedidos: %s",
+            fechaInicio, fechaFin,
+            cantidad, sumatoria, promedio,
+            recibidos, incompletos, pendientes,
+            pedidoMayor != null ? pedidoMayor.getId() + " - $" + pedidoMayor.getValorTotal() : "N/A",
+            proveedorMas
+        );
     }
     public String obtenerEstadisticasMes(String mes){
         List<Pedido> listaPedidos = gestorPedidos.cargarPedidos();
