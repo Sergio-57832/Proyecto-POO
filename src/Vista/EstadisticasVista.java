@@ -13,17 +13,20 @@ public class EstadisticasVista extends javax.swing.JFrame {
     /**
      * Creates new form EstadisticasVista
      */
+    // Componentes de fechas
+    private com.github.lgooddatepicker.components.DatePicker fechaInicioPicker = new com.github.lgooddatepicker.components.DatePicker();
+    private com.github.lgooddatepicker.components.DatePicker fechaFinPicker = new com.github.lgooddatepicker.components.DatePicker();
     private Controlador controlador = new Controlador(new GestorProveedores(), new GestorEntregas(), new GestorPedidos());
+    private javax.swing.JList<String> listProveedores = new javax.swing.JList<>();
+    private javax.swing.JScrollPane scrollProveedores = new javax.swing.JScrollPane(listProveedores);
     public EstadisticasVista() {
         initComponents();
-        spinnerDiaInicio.setModel(new javax.swing.SpinnerNumberModel(1, 1, 31, 1));
-        spinnerMesInicio.setModel(new javax.swing.SpinnerNumberModel(1, 1, 12, 1));
-        spinnerAñoInicio.setModel(new javax.swing.SpinnerNumberModel(2026L, 2000L, 2100L, 1L));
-        spinnerDiaFin.setModel(new javax.swing.SpinnerNumberModel(1, 1, 31, 1));
-        spinnerMesFin.setModel(new javax.swing.SpinnerNumberModel(1, 1, 12, 1));
-        spinnerAñoFin.setModel(new javax.swing.SpinnerNumberModel(2026L, 2000L, 2100L, 1L));
         areaResultados.setEditable(false);
         cargarProveedoresCombo();
+        panelFechaInicio.setLayout(new java.awt.BorderLayout());
+        panelFechaInicio.add(fechaInicioPicker, java.awt.BorderLayout.CENTER);
+        panelFechaFinal.setLayout(new java.awt.BorderLayout());
+        panelFechaFinal.add(fechaFinPicker, java.awt.BorderLayout.CENTER);
     }
 
     /**
@@ -34,21 +37,14 @@ public class EstadisticasVista extends javax.swing.JFrame {
     private void initComponents() {
 
         botonBuscar = new javax.swing.JButton();
-        spinnerDiaInicio = new javax.swing.JSpinner();
         jScrollPane1 = new javax.swing.JScrollPane();
         areaResultados = new javax.swing.JTextArea();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        spinnerMesInicio = new javax.swing.JSpinner();
-        spinnerAñoInicio = new javax.swing.JSpinner();
-        spinnerMesFin = new javax.swing.JSpinner();
-        spinnerAñoFin = new javax.swing.JSpinner();
-        spinnerDiaFin = new javax.swing.JSpinner();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         comboProveedor = new javax.swing.JComboBox<>();
+        panelFechaInicio = new javax.swing.JPanel();
+        panelFechaFinal = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -63,13 +59,29 @@ public class EstadisticasVista extends javax.swing.JFrame {
 
         jLabel4.setText("Fecha inicio:");
 
-        jLabel5.setText("Dia");
-
-        jLabel6.setText("Mes");
-
-        jLabel7.setText("Año");
-
         jLabel8.setText("Proveedor");
+
+        javax.swing.GroupLayout panelFechaInicioLayout = new javax.swing.GroupLayout(panelFechaInicio);
+        panelFechaInicio.setLayout(panelFechaInicioLayout);
+        panelFechaInicioLayout.setHorizontalGroup(
+            panelFechaInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 118, Short.MAX_VALUE)
+        );
+        panelFechaInicioLayout.setVerticalGroup(
+            panelFechaInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 25, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout panelFechaFinalLayout = new javax.swing.GroupLayout(panelFechaFinal);
+        panelFechaFinal.setLayout(panelFechaFinalLayout);
+        panelFechaFinalLayout.setHorizontalGroup(
+            panelFechaFinalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 118, Short.MAX_VALUE)
+        );
+        panelFechaFinalLayout.setVerticalGroup(
+            panelFechaFinalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 25, Short.MAX_VALUE)
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -85,30 +97,16 @@ public class EstadisticasVista extends javax.swing.JFrame {
                             .addComponent(jLabel8))
                         .addGap(35, 35, 35)
                         .addComponent(botonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(101, 101, 101)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(spinnerDiaFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(spinnerMesFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(spinnerAñoFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(spinnerDiaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(9, 9, 9)
-                                        .addComponent(jLabel5)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel6)
-                                    .addComponent(spinnerMesInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel7)
-                                    .addComponent(spinnerAñoInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(comboProveedor, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addGap(101, 101, 101)
+                            .addComponent(comboProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(181, 181, 181)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(panelFechaFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(panelFechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGap(30, 30, 30))))
                 .addGap(40, 40, 40)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 351, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(152, Short.MAX_VALUE))
@@ -120,27 +118,22 @@ public class EstadisticasVista extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel7))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGap(34, 34, 34)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel4)
-                            .addComponent(spinnerDiaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(spinnerMesInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(spinnerAñoInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(19, 19, 19)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(spinnerDiaFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(spinnerMesFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(spinnerAñoFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(33, 33, 33)
+                            .addComponent(panelFechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(20, 20, 20)
+                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(panelFechaFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(38, 38, 38)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel8)
                             .addComponent(comboProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 227, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 225, Short.MAX_VALUE)
                         .addComponent(botonBuscar)))
                 .addGap(70, 70, 70))
         );
@@ -149,20 +142,15 @@ public class EstadisticasVista extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBuscarActionPerformed
-        String diaInicio = String.format("%02d", ((Number) spinnerDiaInicio.getValue()).intValue());
-        String mesInicio = String.format("%02d", ((Number) spinnerMesInicio.getValue()).intValue());
-        String añoInicio = String.valueOf(((Number) spinnerAñoInicio.getValue()).intValue());
-        String fechaInicio = añoInicio + "-" + mesInicio + "-" + diaInicio;
-
-        String diaFin = String.format("%02d", ((Number) spinnerDiaFin.getValue()).intValue());
-        String mesFin = String.format("%02d", ((Number) spinnerMesFin.getValue()).intValue());
-        String añoFin = String.valueOf(((Number) spinnerAñoFin.getValue()).intValue());
-        String fechaFin = añoFin + "-" + mesFin + "-" + diaFin;
-
+        if(fechaInicioPicker.getDate() == null || fechaFinPicker.getDate() == null){
+            javax.swing.JOptionPane.showMessageDialog(this, "Selecciona ambas fechas");
+            return;
+        }
+        String fechaInicio = fechaInicioPicker.getDate().toString();
+        String fechaFin = fechaFinPicker.getDate().toString();
         String idProveedor = comboProveedor.getSelectedItem().toString().equals("Todos") ? 
                              "Todos" : comboProveedor.getSelectedItem().toString().split(" ")[0];
         String resultado = controlador.obtenerEstadisticasRango(fechaInicio, fechaFin, idProveedor);
-        areaResultados.setText("Buscando entre: " + fechaInicio + " y " + fechaFin);
         areaResultados.setText(resultado);
     }//GEN-LAST:event_botonBuscarActionPerformed
 
@@ -205,16 +193,9 @@ public class EstadisticasVista extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> comboProveedor;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JSpinner spinnerAñoFin;
-    private javax.swing.JSpinner spinnerAñoInicio;
-    private javax.swing.JSpinner spinnerDiaFin;
-    private javax.swing.JSpinner spinnerDiaInicio;
-    private javax.swing.JSpinner spinnerMesFin;
-    private javax.swing.JSpinner spinnerMesInicio;
+    private javax.swing.JPanel panelFechaFinal;
+    private javax.swing.JPanel panelFechaInicio;
     // End of variables declaration//GEN-END:variables
 }
