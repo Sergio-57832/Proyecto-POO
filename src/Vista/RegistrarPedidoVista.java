@@ -23,6 +23,34 @@ public class RegistrarPedidoVista extends javax.swing.JFrame {
         cargarProveedoresCombo();
         campoId.setText(controlador.generarIdPedido());
         campoId.setEditable(false);
+        
+        getContentPane().setBackground(new java.awt.Color(30, 80, 120));
+        setTitle("PaperDesk - Registrar Pedido");
+        
+        java.awt.Font fuenteLabe1 = new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 13);
+        java.awt.Color colorBlanco = java.awt.Color.WHITE;
+        
+        idPedido.setForeground(colorBlanco);
+        idPedido.setFont(fuenteLabe1);
+        jLabel2.setForeground(colorBlanco);
+        jLabel2.setFont(fuenteLabe1);
+        jLabel3.setForeground(colorBlanco);
+        jLabel3.setFont(fuenteLabe1);
+        jLabel4.setForeground(colorBlanco);
+        jLabel4.setFont(fuenteLabe1);
+        
+        botonRegistrar.setBackground(new java.awt.Color(39, 174, 96));
+        botonRegistrar.setForeground(java.awt.Color.WHITE);
+        botonRegistrar.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 14));
+        botonRegistrar.setFocusPainted(false);
+        botonRegistrar.setBorderPainted(false);
+        botonRegistrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        
+        javax.swing.JLabel labelTitulo = new javax.swing.JLabel("Registrar Pedido");
+        labelTitulo.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 24));
+        labelTitulo.setForeground(java.awt.Color.WHITE);
+        labelTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        getContentPane().add(labelTitulo, java.awt.BorderLayout.NORTH);
     }
     private DatePicker fechaPicker = new DatePicker();
     /**

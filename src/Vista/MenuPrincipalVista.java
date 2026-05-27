@@ -9,20 +9,17 @@ public class MenuPrincipalVista extends javax.swing.JFrame {
      */
     public MenuPrincipalVista() {
         initComponents();
-        // Título de la ventana
+        
     setTitle("PaperDesk — Gestión de Pedidos");
     
-    // Color de fondo
     getContentPane().setBackground(new java.awt.Color(30, 80, 120));
     
-    // Estilo botón 1 - Gestionar Proveedores
     estilizarBoton(jButton1);
     estilizarBoton(jButton2);
     estilizarBoton(jButton3);
     estilizarBoton(jButton4);
     estilizarBoton(jButton5);
     
-    // Panel superior con título  ← AGREGAR AQUÍ
     javax.swing.JPanel panelTitulo = new javax.swing.JPanel();
     panelTitulo.setBackground(new java.awt.Color(20, 60, 100));
     panelTitulo.setPreferredSize(new java.awt.Dimension(600, 80));
@@ -37,32 +34,29 @@ public class MenuPrincipalVista extends javax.swing.JFrame {
 
     panelTitulo.setLayout(new java.awt.GridLayout(2, 1));
     labelTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-labelSubtitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+    labelSubtitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
     panelTitulo.add(labelTitulo);
     panelTitulo.add(labelSubtitulo);
 
-    // En lugar de agregar al ContentPane directamente, 
-// usamos un JPanel contenedor
-javax.swing.JPanel contenedor = new javax.swing.JPanel(new java.awt.BorderLayout());
-contenedor.setBackground(new java.awt.Color(30, 80, 120));
-contenedor.add(panelTitulo, java.awt.BorderLayout.NORTH);
+    javax.swing.JPanel contenedor = new javax.swing.JPanel(new java.awt.BorderLayout());
+    contenedor.setBackground(new java.awt.Color(30, 80, 120));
+    contenedor.add(panelTitulo, java.awt.BorderLayout.NORTH);
 
-// Mover los botones al centro
-javax.swing.JPanel panelBotones = new javax.swing.JPanel(new java.awt.GridLayout(5, 1, 0, 20));
-panelBotones.setBackground(new java.awt.Color(30, 80, 120));
-panelBotones.setBorder(javax.swing.BorderFactory.createEmptyBorder(60, 400, 60, 400));
-panelBotones.add(jButton1);
-panelBotones.add(jButton2);
-panelBotones.add(jButton4);
-panelBotones.add(jButton3);
-panelBotones.add(jButton5);
+    javax.swing.JPanel panelBotones = new javax.swing.JPanel(new java.awt.GridLayout(5, 1, 0, 20));
+    panelBotones.setBackground(new java.awt.Color(30, 80, 120));
+    panelBotones.setBorder(javax.swing.BorderFactory.createEmptyBorder(60, 400, 60, 400));
+    panelBotones.add(jButton1);
+    panelBotones.add(jButton2);
+    panelBotones.add(jButton4);
+    panelBotones.add(jButton3);
+    panelBotones.add(jButton5);
 
-contenedor.add(panelBotones, java.awt.BorderLayout.CENTER);
-setContentPane(contenedor);
+    contenedor.add(panelBotones, java.awt.BorderLayout.CENTER);
+    setContentPane(contenedor);
     
     }
 
-// Método para estilizar botones
+
 private void estilizarBoton(javax.swing.JButton boton) {
     boton.setBackground(new java.awt.Color(255, 255, 255));
     boton.setForeground(new java.awt.Color(30, 80, 120));
