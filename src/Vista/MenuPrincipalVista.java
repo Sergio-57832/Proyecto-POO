@@ -53,8 +53,8 @@ panelBotones.setBackground(new java.awt.Color(30, 80, 120));
 panelBotones.setBorder(javax.swing.BorderFactory.createEmptyBorder(60, 400, 60, 400));
 panelBotones.add(jButton1);
 panelBotones.add(jButton2);
-panelBotones.add(jButton3);
 panelBotones.add(jButton4);
+panelBotones.add(jButton3);
 panelBotones.add(jButton5);
 
 contenedor.add(panelBotones, java.awt.BorderLayout.CENTER);
